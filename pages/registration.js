@@ -1,21 +1,18 @@
 import {
-	Flex,
-	Box,
 	FormControl,
 	FormLabel,
 	Input,
 	Checkbox,
 	Stack,
-	Link,
 	Button,
-	Heading,
 	Text,
 	HStack,
 	Select,
-	Textarea,
+	Textarea
 } from "@chakra-ui/react";
 import InputGroup from "../components/inputGroup";
 import Layout from "../components/layout";
+import Upload from "../components/upload";
 
 export default function Registration() {
 	return (
@@ -42,6 +39,7 @@ export default function Registration() {
 						<FormLabel>Last Name</FormLabel>
 						<Input type="text" />
 					</FormControl>
+					<Upload type="circle" />
 				</InputGroup>
 
 				<InputGroup label="General">
@@ -212,7 +210,7 @@ export default function Registration() {
 						</FormControl>
 						<FormControl id="presentSignature">
 							<FormLabel>Signature</FormLabel>
-							<Input type="file" />
+							<Upload type="rectangle" />
 							{/* TODO make a custom component out of it! */}
 						</FormControl>
 					</HStack>
