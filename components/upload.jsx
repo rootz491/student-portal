@@ -10,13 +10,14 @@ import {
 import React from "react";
 import { FaTrash } from "react-icons/fa";
 
-export default function Upload({ type = "rectangle" }) {
+export default function Upload({ type = "rectangle", onChange }) {
 	const [file, setFile] = React.useState(null);
 
 	function handleChange(e) {
 		e.preventDefault();
 		let reader = new FileReader();
 		let uploadFile = e.target.files[0];
+		if (onChange) onChange(uploadFile);
 
 		reader.onloadend = () => {
 			setFile({

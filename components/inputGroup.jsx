@@ -1,4 +1,4 @@
-import { HStack, Stack, Text, VStack } from "@chakra-ui/layout";
+import { Stack, Text } from "@chakra-ui/layout";
 
 export default function InputGroup({
 	label,
