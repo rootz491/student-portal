@@ -10,7 +10,7 @@ import {
 	Select,
 	Textarea,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import InputGroup from "../components/inputGroup";
 import Layout from "../components/layout";
 import Upload from "../components/upload";
@@ -72,6 +72,17 @@ export default function Registration() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(formState);
+		fetch("/api/register", {
+			method: "POST",
+			body: JSON.stringify(formState),
+		})
+			.then((res) => res.json())
+			.then((data) => console.log(data))
+			.then(() => {
+				//	show toast
+				alert("Form submitted successfully");
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return (
@@ -706,6 +717,7 @@ export default function Registration() {
 						}}
 						type="submit"
 						onClick={handleSubmit}
+						// onClick={() => notify("success", "Form submitted successfully")}
 					>
 						register
 					</Button>
