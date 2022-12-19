@@ -14,7 +14,6 @@ handler.get((req, res) => {
 		.find({})
 		.toArray()
 		.then((students) => {
-			console.log(students);
 			return res.status(200).json(students);
 		})
 		.catch((error) => {

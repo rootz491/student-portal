@@ -1,10 +1,12 @@
-import { Text, Image, Box, Stack, Heading } from "@chakra-ui/react";
+import { Image, Stack, Heading } from "@chakra-ui/react";
 
-const Product = ({ imageSrc, imageAlt, ...props }) => (
+const Product = ({ imageSrc, imageAlt = "test", ...props }) => (
 	<Stack p={{ base: "0 2rem" }}>
 		<Image
 			objectFit="cover"
-			src={imageSrc ?? "https://via.placeholder.com/350x150?text=Loading..."}
+			src={
+				props?.photo ?? "https://via.placeholder.com/350x150?text=Loading..."
+			}
 			alt={imageAlt}
 		/>
 		<Heading color="teal.300" size="lg" textTransform="capitalize">

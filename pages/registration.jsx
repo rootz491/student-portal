@@ -10,7 +10,8 @@ import {
 	Select,
 	Textarea,
 } from "@chakra-ui/react";
-import { useCallback, useState } from "react";
+import { createRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import InputGroup from "../components/inputGroup";
 import Layout from "../components/layout";
 import Upload from "../components/upload";
@@ -68,13 +69,31 @@ export default function Registration() {
 			signature: null,
 		},
 	});
+	const [captchaCode, setCaptchaCode] = useState(null);
+	const recaptchaRef = createRef();
+
+	const onReCAPTCHAChange = (captchaCode) => {
+		// If the reCAPTCHA code is null or undefined indicating that
+		// the reCAPTCHA was expired then return early
+		if (!captchaCode) {
+			return;
+		}
+		// Else reCAPTCHA was executed successfully.
+		setCaptchaCode(captchaCode);
+		console.log("reCAPTCHA executed successfully");
+	};
+
+	const onReCAPTCHAExpired = () => {
+		console.log("reCAPTCHA expired, please try again");
+		recaptchaRef.current.reset();
+		setCaptchaCode(null);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formState);
 		fetch("/api/register", {
 			method: "POST",
-			body: JSON.stringify(formState),
+			body: JSON.stringify({ ...formState, captcha: captchaCode }),
 		})
 			.then((res) => res.json())
 			.then((data) => console.log(data))
@@ -82,7 +101,13 @@ export default function Registration() {
 				//	show toast
 				alert("Form submitted successfully");
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err))
+			.finally(() => {
+				// Reset the reCAPTCHA so that it can be executed again if user
+				// submits another email.
+				recaptchaRef.current.reset();
+				setCaptchaCode(null);
+			});
 	};
 
 	return (
@@ -700,15 +725,14 @@ export default function Registration() {
 					</HStack>
 				</InputGroup>
 
-				<Stack spacing={10}>
-					<Stack
-						direction={{ base: "column", sm: "row" }}
-						align={"start"}
-						justify={"space-between"}
-					>
-						<Text>Are you a human?</Text>
-						<Checkbox>Yes</Checkbox>
-					</Stack>
+				<Stack spacing={4} pt={10}>
+					<ReCAPTCHA
+						ref={recaptchaRef}
+						// size="invisible"
+						sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+						onChange={onReCAPTCHAChange}
+						onExpired={onReCAPTCHAExpired}
+					/>
 					<Button
 						bg={"blue.400"}
 						color={"white"}
@@ -717,7 +741,7 @@ export default function Registration() {
 						}}
 						type="submit"
 						onClick={handleSubmit}
-						// onClick={() => notify("success", "Form submitted successfully")}
+						disabled={captchaCode === null}
 					>
 						register
 					</Button>

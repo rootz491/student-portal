@@ -44,7 +44,7 @@ const LoginPage = () => {
 		})
 			.then((res) => {
 				if (res.status !== 200) {
-					router.push("/");
+					throw new Error("Failed to authenticate");
 				} else {
 					const data = res.json();
 					return data;

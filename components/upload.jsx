@@ -17,14 +17,14 @@ export default function Upload({ type = "rectangle", onChange }) {
 		e.preventDefault();
 		let reader = new FileReader();
 		let uploadFile = e.target.files[0];
-		if (onChange) onChange(uploadFile);
 
 		reader.onloadend = () => {
 			setFile({
 				file: uploadFile,
 				imagePreviewUrl: reader.result,
 			});
-			console.log(file);
+			//	set file to b64 url
+			if (onChange) onChange(reader.result);
 		};
 
 		reader.readAsDataURL(uploadFile);
