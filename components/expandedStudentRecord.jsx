@@ -201,7 +201,7 @@ export default function ExpandStudent({ student, deleteRecord }) {
 							/>
 						</InputGroup>
 
-						<InputGroup direction="column" label="Residential Permit">
+						<InputGroup direction="column" label="Visa Details">
 							<KeyField
 								label="Number"
 								value={

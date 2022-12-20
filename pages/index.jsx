@@ -492,7 +492,7 @@ export default function Registration() {
 					</Stack>
 				</InputGroup>
 
-				<InputGroup label="Residential Permit">
+				<InputGroup label="Visa Details">
 					<FormControl id="RPNumber" isRequired>
 						<FormLabel>Number</FormLabel>
 						<Input
