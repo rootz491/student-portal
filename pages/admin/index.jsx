@@ -2,6 +2,7 @@ import React from "react";
 import { Flex, Grid, Heading, Spinner } from "@chakra-ui/react";
 import Student from "../../components/student";
 import { useRouter } from "next/router";
+import Layout from "../../components/layout";
 
 export default function Admin() {
 	const [students, setStudents] = React.useState([]);
@@ -83,38 +84,41 @@ export default function Admin() {
 	}
 
 	return (
-		<Flex
-			direction="column"
-			justifyContent="center"
-			maxW={{
-				base: "98%",
-				xl: "1200px",
-			}}
-			m="50px auto"
-		>
-			<Heading textAlign="center" size="2xl">
-				Students
-			</Heading>
-			<Grid
-				mt={{
-					base: "1rem",
-					lg: "2rem",
-					xl: "4rem",
+		<Layout>
+			<Flex
+				direction="column"
+				justifyContent="center"
+				maxW={{
+					base: "98%",
+					xl: "1200px",
 				}}
-				w="full"
-				gridGap="5"
-				gridTemplateColumns="repeat( auto-fit, minmax(300px, 1fr) )"
+				m="auto"
+				py={5}
 			>
-				{students.length > 0 ? (
-					students?.map((p) => (
-						<Student key={p._id} deleteRecord={deleteRecord} {...p} />
-					))
-				) : (
-					<Heading textAlign="center" size="xl">
-						No records found
-					</Heading>
-				)}
-			</Grid>
-		</Flex>
+				<Heading textAlign="center" size="2xl">
+					Students
+				</Heading>
+				<Grid
+					mt={{
+						base: "1rem",
+						lg: "2rem",
+						xl: "4rem",
+					}}
+					w="full"
+					gridGap="5"
+					gridTemplateColumns="repeat( auto-fit, minmax(300px, 1fr) )"
+				>
+					{students.length > 0 ? (
+						students?.map((p) => (
+							<Student key={p._id} deleteRecord={deleteRecord} {...p} />
+						))
+					) : (
+						<Heading textAlign="center" size="xl">
+							No records found
+						</Heading>
+					)}
+				</Grid>
+			</Flex>
+		</Layout>
 	);
 }

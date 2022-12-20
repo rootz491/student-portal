@@ -36,7 +36,7 @@ export default function ExpandStudent({ student, deleteRecord }) {
 			/>
 			<Modal size="3xl" isOpen={expanded} onClose={() => setExpanded(false)}>
 				<ModalOverlay />
-				<ModalContent>
+				<ModalContent bg="#2D3748">
 					<ModalHeader>Student Details</ModalHeader>
 					<ModalCloseButton onClick={() => setExpanded(false)} />
 					<ModalBody>
