@@ -7,12 +7,12 @@ handler.use(middleware);
 
 const folderName = "ugandan-student-portal";
 
-const upload = async (file, callback) => {
+const upload = async (file, studentFolderName, callback) => {
 	return await cloudinary.uploader.upload(
 		file,
 		{
 			use_asset_folder_as_public_id_prefix: true,
-			folder: folderName,
+			folder: folderName + "/" + studentFolderName,
 			overwrite: true,
 			invalidate: true,
 		},
@@ -25,6 +25,8 @@ const upload = async (file, callback) => {
 
 handler.post(async (req, res) => {
 	const { files, captcha, ...body } = JSON.parse(req.body);
+
+	//	Validate captcha
 	const response = await fetch(
 		`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captcha}`,
 		{
@@ -43,17 +45,25 @@ handler.post(async (req, res) => {
 		return;
 	}
 
+	const docCount = await req.db.collection("students").countDocuments();
+	const studentFolderName =
+		docCount + 1 + "___" + Math.random().toString(36).substring(2, 15);
+	//	Upload files
 	const imgs = {
 		photo: null,
 		signature: null,
 	};
 
 	if (files?.photo != null)
-		await upload(files?.photo, (result) => {
+		await upload(files?.photo, studentFolderName, (result) => {
 			imgs.photo = result;
 		});
 	if (files?.signature != null)
-		await upload(files?.signature, (result) => (imgs.signature = result));
+		await upload(
+			files?.signature,
+			studentFolderName,
+			(result) => (imgs.signature = result)
+		);
 
 	const { acknowledged } = await req.db
 		.collection("students")

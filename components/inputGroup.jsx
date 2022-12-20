@@ -19,7 +19,10 @@ export default function InputGroup({
 				{label}
 			</Text>
 			<Stack
-				direction={direction}
+				direction={{
+					base: "column",
+					md: direction,
+				}}
 				w="full"
 				alignItems="start"
 				rounded="lg"

@@ -1,6 +1,7 @@
 import nextConnect from "next-connect";
 import middleware from "../../../lib/middleware";
 import auth from "../../../lib/auth";
+import { ObjectId } from "mongodb";
 
 const handler = nextConnect();
 
@@ -26,21 +27,26 @@ handler.get((req, res) => {
 
 handler.delete((req, res) => {
 	const { id } = req.body;
-
+	console.log(id);
 	return req.db
 		.collection("students")
-		.deleteOne({ _id: id })
+		.deleteOne({
+			_id: ObjectId(id),
+		})
 		.then((result) => {
 			if (result.deletedCount === 1) {
 				return res.status(200).json({
+					success: true,
 					message: "Student deleted",
 				});
 			}
-			return res.status(404).json({
+			return res.status(200).json({
+				success: false,
 				message: "Student not found",
 			});
 		})
 		.catch((error) => {
+			console.log(error);
 			return res.status(500).json({
 				message: "Something went wrong",
 			});

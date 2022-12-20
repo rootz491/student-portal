@@ -39,8 +39,13 @@ export default function Upload({ type = "rectangle", onChange }) {
 			<FormControl
 				id="file_upload_circle"
 				as={Grid}
-				height="80px"
-				width="300px"
+				height="75px"
+				width={{
+					base: "80px",
+					md: "150px",
+					lg: "300px",
+				}}
+				margin="auto"
 				rounded="100%"
 				placeContent="center"
 				bg={file == null ? "lightgray" : "none"}
