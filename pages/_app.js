@@ -38,6 +38,11 @@ const theme = extendTheme({
 				color: "secondary.100",
 			},
 		},
+		FormLabel: {
+			baseStyle: {
+				color: "white",
+			},
+		},
 	},
 });
 
