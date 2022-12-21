@@ -108,7 +108,7 @@ export default function Admin() {
 					gridGap="5"
 					gridTemplateColumns="repeat( auto-fit, minmax(300px, 1fr) )"
 				>
-					{students.length > 0 ? (
+					{students?.length > 0 ? (
 						students?.map((p) => (
 							<Student key={p._id} deleteRecord={deleteRecord} {...p} />
 						))

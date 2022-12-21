@@ -3,16 +3,13 @@ import { extendTheme } from "@chakra-ui/react";
 
 const colors = {
 	primary: {
-		100: "#4C3F91",
+		100: "#000000",
 	},
 	secondary: {
-		100: "#9145B6",
+		100: "#F0CB00",
 	},
 	soft: {
-		100: "#B958A5",
-	},
-	touch: {
-		100: "#FF5677",
+		100: "#CC0102",
 	},
 };
 
@@ -23,7 +20,7 @@ const theme = extendTheme({
 			baseStyle: {
 				fontWeight: "bold",
 				colors: "white",
-				backgroundColor: "primary.100",
+				backgroundColor: "secondary.100",
 			},
 		},
 		Text: {
@@ -34,6 +31,11 @@ const theme = extendTheme({
 		Input: {
 			baseStyle: {
 				color: "white",
+			},
+		},
+		Heading: {
+			baseStyle: {
+				color: "secondary.100",
 			},
 		},
 	},

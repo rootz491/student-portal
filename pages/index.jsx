@@ -4,7 +4,6 @@ import {
 	Input,
 	Stack,
 	Button,
-	HStack,
 	Select,
 	Textarea,
 } from "@chakra-ui/react";
@@ -12,6 +11,7 @@ import { createRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import InputGroup from "../components/inputGroup";
 import Layout from "../components/layout";
+import Loading from "../components/loading";
 import Upload from "../components/upload";
 
 const defaultFormState = {
@@ -70,6 +70,7 @@ const defaultFormState = {
 export default function Registration() {
 	const [formState, setFormState] = useState(defaultFormState);
 	const [captchaCode, setCaptchaCode] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const recaptchaRef = createRef();
 
 	const onReCAPTCHAChange = (captchaCode) => {
@@ -170,7 +171,7 @@ export default function Registration() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		setLoading(true);
 		if (!validator()) return;
 
 		fetch("/api/register", {
@@ -190,11 +191,13 @@ export default function Registration() {
 				recaptchaRef.current.reset();
 				setCaptchaCode(null);
 				setFormState(defaultFormState);
+				setLoading(false);
 			});
 	};
 
 	return (
 		<Layout>
+			<Loading active={loading} />
 			<Stack
 				paddingY={8}
 				spacing={4}
@@ -213,6 +216,7 @@ export default function Registration() {
 						<FormLabel>Surname</FormLabel>
 						<Input
 							value={formState.general.surName}
+							color="white"
 							onChange={(e) =>
 								setFormState({
 									...formState,
@@ -229,6 +233,7 @@ export default function Registration() {
 						<FormLabel>Middle Name</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.general.middleName}
 							onChange={(e) =>
 								setFormState({
@@ -245,6 +250,7 @@ export default function Registration() {
 						<FormLabel>Last Name</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.general.lastName}
 							onChange={(e) =>
 								setFormState({
@@ -295,6 +301,7 @@ export default function Registration() {
 						<FormLabel>Date of Birth</FormLabel>
 						<Input
 							type="date"
+							color="white"
 							value={formState.general.dateOfBirth}
 							onChange={(e) =>
 								setFormState({
@@ -311,6 +318,7 @@ export default function Registration() {
 						<FormLabel>Place</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.general.place}
 							onChange={(e) =>
 								setFormState({
@@ -330,22 +338,25 @@ export default function Registration() {
 						<FormLabel>Passport Number</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.passport.number}
-							onChange={(e) =>
+							onChange={(e) => {
+								if (isNaN(e.target.value)) return;
 								setFormState({
 									...formState,
 									passport: {
 										...formState.passport,
 										number: e.target.value,
 									},
-								})
-							}
+								});
+							}}
 						/>
 					</FormControl>
 					<FormControl id="DOI" isRequired>
 						<FormLabel>Date of Issue</FormLabel>
 						<Input
 							type="date"
+							color="white"
 							value={formState.passport.dateOfIssue}
 							onChange={(e) =>
 								setFormState({
@@ -362,6 +373,7 @@ export default function Registration() {
 						<FormLabel>place</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.passport.place}
 							onChange={(e) =>
 								setFormState({
@@ -378,6 +390,7 @@ export default function Registration() {
 						<FormLabel>Expiry Date</FormLabel>
 						<Input
 							type="date"
+							color="white"
 							value={formState.passport.expiryDate}
 							onChange={(e) =>
 								setFormState({
@@ -404,6 +417,7 @@ export default function Registration() {
 							<FormLabel>Permanent address in Uganda</FormLabel>
 							<Input
 								type="text"
+								color="white"
 								value={formState.address.ugandaAddress}
 								onChange={(e) =>
 									setFormState({
@@ -420,6 +434,7 @@ export default function Registration() {
 							<FormLabel>Permanent address in India</FormLabel>
 							<Input
 								type="text"
+								color="white"
 								value={formState.address.indiaAddress}
 								onChange={(e) =>
 									setFormState({
@@ -445,38 +460,43 @@ export default function Registration() {
 							<FormLabel>Tel No.</FormLabel>
 							<Input
 								type="tel"
+								color="white"
 								value={formState.address.tel}
-								onChange={(e) =>
+								onChange={(e) => {
+									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										address: {
 											...formState.address,
 											tel: e.target.value,
 										},
-									})
-								}
+									});
+								}}
 							/>
 						</FormControl>
 						<FormControl id="fax" isRequired>
 							<FormLabel>Fax No.</FormLabel>
 							<Input
 								type="text"
+								color="white"
 								value={formState.address.fax}
-								onChange={(e) =>
+								onChange={(e) => {
+									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										address: {
 											...formState.address,
 											fax: e.target.value,
 										},
-									})
-								}
+									});
+								}}
 							/>
 						</FormControl>
 						<FormControl id="email">
 							<FormLabel>Email address</FormLabel>
 							<Input
 								type="email"
+								color="white"
 								value={formState.address.email}
 								onChange={(e) =>
 									setFormState({
@@ -497,22 +517,25 @@ export default function Registration() {
 						<FormLabel>Number</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.residentialPermit.number}
-							onChange={(e) =>
+							onChange={(e) => {
+								if (isNaN(e.target.value)) return;
 								setFormState({
 									...formState,
 									residentialPermit: {
 										...formState.residentialPermit,
 										number: e.target.value,
 									},
-								})
-							}
+								});
+							}}
 						/>
 					</FormControl>
 					<FormControl id="RPDOI" isRequired>
 						<FormLabel>Date of Issue</FormLabel>
 						<Input
 							type="date"
+							color="white"
 							value={formState.residentialPermit.dateOfIssue}
 							onChange={(e) =>
 								setFormState({
@@ -529,6 +552,7 @@ export default function Registration() {
 						<FormLabel>Expiry Date</FormLabel>
 						<Input
 							type="date"
+							color="white"
 							value={formState.residentialPermit.expiryDate}
 							onChange={(e) =>
 								setFormState({
@@ -548,6 +572,7 @@ export default function Registration() {
 						<FormLabel>Name</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.guardian.name}
 							onChange={(e) =>
 								setFormState({
@@ -563,6 +588,7 @@ export default function Registration() {
 					<FormControl id="guardianAddress" isRequired>
 						<FormLabel>Address</FormLabel>
 						<Textarea
+							color="white"
 							value={formState.guardian.address}
 							onChange={(e) =>
 								setFormState({
@@ -587,38 +613,43 @@ export default function Registration() {
 							<FormLabel>Tel No.</FormLabel>
 							<Input
 								type="tel"
+								color="white"
 								value={formState.guardian.tel}
-								onChange={(e) =>
+								onChange={(e) => {
+									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										guardian: {
 											...formState.guardian,
 											tel: e.target.value,
 										},
-									})
-								}
+									});
+								}}
 							/>
 						</FormControl>
 						<FormControl id="guardianFax" isRequired>
 							<FormLabel>Fax No.</FormLabel>
 							<Input
 								type="text"
+								color="white"
 								value={formState.guardian.fax}
-								onChange={(e) =>
+								onChange={(e) => {
+									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										guardian: {
 											...formState.guardian,
 											fax: e.target.value,
 										},
-									})
-								}
+									});
+								}}
 							/>
 						</FormControl>
 						<FormControl id="guardianEmail">
 							<FormLabel>Email address</FormLabel>
 							<Input
 								type="email"
+								color="white"
 								value={formState.guardian.email}
 								onChange={(e) =>
 									setFormState({
@@ -636,6 +667,7 @@ export default function Registration() {
 						<FormLabel>Occupation</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.guardian.occupation}
 							onChange={(e) =>
 								setFormState({
@@ -684,6 +716,7 @@ export default function Registration() {
 							Uganda or abroad
 						</FormLabel>
 						<Textarea
+							color="white"
 							value={formState.study.previousTwoEducationalInstitutes}
 							onChange={(e) =>
 								setFormState({
@@ -699,6 +732,7 @@ export default function Registration() {
 					<FormControl id="employmentRecord">
 						<FormLabel>Employment record in Uganda or abroad</FormLabel>
 						<Textarea
+							color="white"
 							value={formState.study.employmentRecord}
 							onChange={(e) =>
 								setFormState({
@@ -715,6 +749,7 @@ export default function Registration() {
 						<FormLabel>Present Course of study</FormLabel>
 						<Input
 							type="text"
+							color="white"
 							value={formState.study.presentCourse}
 							onChange={(e) =>
 								setFormState({
@@ -732,6 +767,7 @@ export default function Registration() {
 							Address of Institutions/Schooles/Colleges of studying
 						</FormLabel>
 						<Textarea
+							color="white"
 							value={formState.study.presentInstituteAddress}
 							onChange={(e) =>
 								setFormState({
@@ -748,6 +784,7 @@ export default function Registration() {
 						<FormLabel>Expected date of completion of the study</FormLabel>
 						<Input
 							type="date"
+							color="white"
 							value={formState.study.expectedDateOfCompletion}
 							onChange={(e) =>
 								setFormState({
@@ -766,6 +803,7 @@ export default function Registration() {
 							Mention name of your sponsor
 						</FormLabel>
 						<Textarea
+							color="white"
 							value={formState.study.sponsorship}
 							onChange={(e) =>
 								setFormState({
@@ -784,6 +822,7 @@ export default function Registration() {
 					<FormControl id="otherInfo">
 						<FormLabel>Any other information (non confidential)</FormLabel>
 						<Textarea
+							color="white"
 							value={formState.otherInformation}
 							onChange={(e) =>
 								setFormState({
@@ -806,6 +845,7 @@ export default function Registration() {
 							<FormLabel>Date</FormLabel>
 							<Input
 								type="date"
+								color="white"
 								value={formState.date}
 								onChange={(e) =>
 									setFormState({
@@ -819,6 +859,7 @@ export default function Registration() {
 							<FormLabel>Place</FormLabel>
 							<Input
 								type="text"
+								color="white"
 								value={formState.place}
 								onChange={(e) =>
 									setFormState({
@@ -855,10 +896,11 @@ export default function Registration() {
 						onExpired={onReCAPTCHAExpired}
 					/>
 					<Button
-						bg={"blue.400"}
-						color={"white"}
+						bg="soft.100"
+						color="white"
 						_hover={{
-							bg: "blue.500",
+							bg: "secondary.100",
+							color: "black",
 						}}
 						type="submit"
 						onClick={handleSubmit}

@@ -48,7 +48,7 @@ export default function Upload({ type = "rectangle", onChange }) {
 				margin="auto"
 				rounded="100%"
 				placeContent="center"
-				bg={file == null ? "lightgray" : "none"}
+				bg={file == null ? "secondary.100" : "none"}
 				zIndex={10}
 			>
 				{file != null ? (
@@ -110,7 +110,7 @@ export default function Upload({ type = "rectangle", onChange }) {
 					as={Text}
 					w="full"
 					p={2}
-					bg="lightgray"
+					bg="secondary.100"
 					color="black"
 					rounded="full"
 					textAlign="center"
