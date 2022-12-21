@@ -86,7 +86,7 @@ export default function Registration() {
 
 	const onReCAPTCHAExpired = () => {
 		console.log("reCAPTCHA expired, please try again");
-		recaptchaRef.current.reset();
+		recaptchaRef?.current?.reset();
 		setCaptchaCode(null);
 	};
 
@@ -171,8 +171,8 @@ export default function Registration() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setLoading(true);
 		if (!validator()) return;
+		setLoading(true);
 
 		fetch("/api/register", {
 			method: "POST",
@@ -188,7 +188,6 @@ export default function Registration() {
 			.finally(() => {
 				// Reset the reCAPTCHA so that it can be executed again if user
 				// submits another email.
-				recaptchaRef.current.reset();
 				setCaptchaCode(null);
 				setFormState(defaultFormState);
 				setLoading(false);
@@ -712,7 +711,7 @@ export default function Registration() {
 				<InputGroup label="Study" direction="column">
 					<FormControl id="lastColg" isRequired>
 						<FormLabel>
-							Last two educational Institutions/Schooles/Colleges attended in
+							Last two educational Institutions/Schools/Colleges attended in
 							Uganda or abroad
 						</FormLabel>
 						<Textarea
@@ -764,7 +763,7 @@ export default function Registration() {
 					</FormControl>
 					<FormControl id="lastColg" isRequired>
 						<FormLabel>
-							Address of Institutions/Schooles/Colleges of studying
+							Address of Institutions/Schools/Colleges of studying
 						</FormLabel>
 						<Textarea
 							color="white"

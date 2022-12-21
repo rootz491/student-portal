@@ -290,7 +290,7 @@ export default function ExpandStudent({ student, deleteRecord }) {
 						<InputGroup direction="column" label="Study">
 							<KeyField
 								direction="column"
-								label="Last two educational Institutions/Schooles/Colleges attended in Uganda or abroad"
+								label="Last two educational Institutions/Schools/Colleges attended in Uganda or abroad"
 								value={
 									student.study?.previousTwoEducationalInstitutes === ""
 										? "Not provided"
@@ -317,7 +317,7 @@ export default function ExpandStudent({ student, deleteRecord }) {
 							/>
 							<KeyField
 								direction="column"
-								label="Address of Institutions/Schooles/Colleges of studying"
+								label="Address of Institutions/Schools/Colleges of studying"
 								value={
 									student.study?.presentInstituteAddress === ""
 										? "Not provided"
