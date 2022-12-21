@@ -43,6 +43,11 @@ const theme = extendTheme({
 				color: "white",
 			},
 		},
+		Select: {
+			baseStyle: {
+				color: "white",
+			},
+		},
 	},
 });
 
