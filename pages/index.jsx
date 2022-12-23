@@ -281,6 +281,7 @@ export default function Registration() {
 						<FormLabel>Sex</FormLabel>
 						<Select
 							defaultValue="female"
+							color="white"
 							value={formState.general.sex}
 							onChange={(e) =>
 								setFormState({
@@ -690,6 +691,7 @@ export default function Registration() {
 						<FormLabel>Marital Status</FormLabel>
 						<Select
 							defaultValue="married"
+							color="white"
 							value={formState.guardian.relationship}
 							onChange={(e) =>
 								setFormState({
