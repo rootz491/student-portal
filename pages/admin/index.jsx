@@ -118,6 +118,7 @@ export default function Admin() {
 					<InputGroup w="30%" flexDirection="column">
 						<FormLabel>Start Date</FormLabel>
 						<Input
+							color="white"
 							type="date"
 							value={startData}
 							onChange={(e) => setStartData(e.target.value)}
@@ -127,6 +128,7 @@ export default function Admin() {
 					<InputGroup w="30%" flexDirection="column">
 						<FormLabel>End Date</FormLabel>
 						<Input
+							color="white"
 							type="date"
 							value={endData}
 							onChange={(e) => setEndData(e.target.value)}
