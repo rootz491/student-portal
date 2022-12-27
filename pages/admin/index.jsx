@@ -114,8 +114,22 @@ export default function Admin() {
 					Students
 				</Heading>
 
-				<Flex gap="1em" justifyContent="center" my="4em">
-					<InputGroup w="30%" flexDirection="column">
+				<Flex
+					gap="1em"
+					justifyContent="center"
+					my="4em"
+					direction={{
+						base: "column",
+						md: "row",
+					}}
+				>
+					<InputGroup
+						w={{
+							base: "100%",
+							md: "30%",
+						}}
+						flexDirection="column"
+					>
 						<FormLabel>Start Date</FormLabel>
 						<Input
 							color="white"
@@ -125,7 +139,13 @@ export default function Admin() {
 						/>
 					</InputGroup>
 
-					<InputGroup w="30%" flexDirection="column">
+					<InputGroup
+						w={{
+							base: "100%",
+							md: "30%",
+						}}
+						flexDirection="column"
+					>
 						<FormLabel>End Date</FormLabel>
 						<Input
 							color="white"
