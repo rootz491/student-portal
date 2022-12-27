@@ -1,24 +1,37 @@
 import React from "react";
-import { Flex, Grid, Heading, Spinner } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	Flex,
+	FormLabel,
+	Grid,
+	Heading,
+	Input,
+	InputGroup,
+	Spinner,
+} from "@chakra-ui/react";
 import Student from "../../components/student";
 import { useRouter } from "next/router";
 import Layout from "../../components/layout";
 
 export default function Admin() {
 	const [students, setStudents] = React.useState([]);
-	const [loading, setLoading] = React.useState(true);
+	const [loading, setLoading] = React.useState(false);
+	const [startData, setStartData] = React.useState(null);
+	const [endData, setEndData] = React.useState(null);
 	const router = useRouter();
-
-	React.useEffect(() => {
-		fetchRecords();
-	}, []);
 
 	const fetchRecords = () => {
 		const token = localStorage.getItem("token");
 		if (!token) {
 			router.push("/admin/login");
 		}
-		fetch("/api/admin", {
+		if (!startData || !endData) {
+			alert("Please select start and end date");
+			return;
+		}
+		setLoading(true);
+		fetch(`/api/admin?startDate=${startData}&endDate=${endData}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -77,9 +90,11 @@ export default function Admin() {
 
 	if (loading) {
 		return (
-			<Grid height="100vh" width="full" placeContent="center">
-				<Spinner size="xl" />
-			</Grid>
+			<Layout>
+				<Grid minH="80vh" width="full" placeContent="center">
+					<Spinner size="xl" />
+				</Grid>
+			</Layout>
 		);
 	}
 
@@ -98,6 +113,31 @@ export default function Admin() {
 				<Heading textAlign="center" size="2xl">
 					Students
 				</Heading>
+
+				<Flex gap="1em" justifyContent="center" my="4em">
+					<InputGroup w="30%" flexDirection="column">
+						<FormLabel>Start Date</FormLabel>
+						<Input
+							type="date"
+							value={startData}
+							onChange={(e) => setStartData(e.target.value)}
+						/>
+					</InputGroup>
+
+					<InputGroup w="30%" flexDirection="column">
+						<FormLabel>End Date</FormLabel>
+						<Input
+							type="date"
+							value={endData}
+							onChange={(e) => setEndData(e.target.value)}
+						/>
+					</InputGroup>
+
+					<Button mt="1.5rem" colorScheme="teal" onClick={fetchRecords}>
+						Search
+					</Button>
+				</Flex>
+
 				<Grid
 					mt={{
 						base: "1rem",

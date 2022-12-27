@@ -6,13 +6,19 @@ import { ObjectId } from "mongodb";
 const handler = nextConnect();
 
 handler.use(middleware);
-
 handler.use(auth);
 
 handler.get((req, res) => {
+	const { startDate, endDate } = req.query;
+
 	return req.db
 		.collection("students")
-		.find({})
+		.find({
+			createdAt: {
+				$gte: new Date(startDate),
+				$lte: new Date(endDate),
+			},
+		})
 		.toArray()
 		.then((students) => {
 			return res.status(200).json(students);

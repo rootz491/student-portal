@@ -75,7 +75,7 @@ const LoginPage = () => {
 	return (
 		<Layout>
 			<Loading active={loading} />
-			<Grid minH="100vh" p={3}>
+			<Grid minH="80vh" p={3}>
 				<Stack
 					flexDir="column"
 					mb="2"

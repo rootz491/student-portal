@@ -67,7 +67,7 @@ handler.post(async (req, res) => {
 
 	const { acknowledged } = await req.db
 		.collection("students")
-		.insertOne({ ...body, ...imgs });
+		.insertOne({ ...body, ...imgs, createdAt: new Date() });
 	if (acknowledged) {
 		res.send({
 			status: "ok",
