@@ -19,7 +19,7 @@ export default function Upload({ type = "rectangle", onChange }) {
 
 		//	check file size
 		if (uploadFile.size > 1027970) {
-			alert("File size is too big. Max size is 500KB");
+			alert("File size is too big. Max size is 1MB");
 			return;
 		}
 
