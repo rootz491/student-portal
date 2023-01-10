@@ -100,8 +100,15 @@ export default function Upload({ type = "rectangle", onChange }) {
 					</>
 				) : (
 					<>
-						<FormLabel w="full" h="full" cursor="pointer" color="black" m={0}>
-							upload
+						<FormLabel
+							textAlign="center"
+							w="full"
+							h="full"
+							cursor="pointer"
+							color="black"
+							m={0}
+						>
+							upload photo
 						</FormLabel>
 						<Input
 							onChange={handleChange}
