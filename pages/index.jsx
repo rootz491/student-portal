@@ -341,7 +341,6 @@ export default function Registration() {
 							color="white"
 							value={formState.passport.number}
 							onChange={(e) => {
-								if (isNaN(e.target.value)) return;
 								setFormState({
 									...formState,
 									passport: {
@@ -463,7 +462,6 @@ export default function Registration() {
 								color="white"
 								value={formState.address.tel}
 								onChange={(e) => {
-									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										address: {
@@ -481,7 +479,6 @@ export default function Registration() {
 								color="white"
 								value={formState.address.fax}
 								onChange={(e) => {
-									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										address: {
@@ -520,7 +517,6 @@ export default function Registration() {
 							color="white"
 							value={formState.residentialPermit.number}
 							onChange={(e) => {
-								if (isNaN(e.target.value)) return;
 								setFormState({
 									...formState,
 									residentialPermit: {
@@ -616,7 +612,6 @@ export default function Registration() {
 								color="white"
 								value={formState.guardian.tel}
 								onChange={(e) => {
-									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										guardian: {
@@ -634,7 +629,6 @@ export default function Registration() {
 								color="white"
 								value={formState.guardian.fax}
 								onChange={(e) => {
-									if (isNaN(e.target.value)) return;
 									setFormState({
 										...formState,
 										guardian: {

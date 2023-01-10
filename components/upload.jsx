@@ -15,9 +15,15 @@ export default function Upload({ type = "rectangle", onChange }) {
 
 	function handleChange(e) {
 		e.preventDefault();
-		let reader = new FileReader();
 		let uploadFile = e.target.files[0];
 
+		//	check file size
+		if (uploadFile.size > 513985) {
+			alert("File size is too big. Max size is 500KB");
+			return;
+		}
+
+		let reader = new FileReader();
 		reader.onloadend = () => {
 			setFile({
 				file: uploadFile,
@@ -97,7 +103,12 @@ export default function Upload({ type = "rectangle", onChange }) {
 						<FormLabel w="full" h="full" cursor="pointer" color="black" m={0}>
 							upload
 						</FormLabel>
-						<Input onChange={handleChange} type="file" display="none" />
+						<Input
+							onChange={handleChange}
+							type="file"
+							accept="image/*"
+							display="none"
+						/>
 					</>
 				)}
 			</FormControl>
@@ -125,7 +136,12 @@ export default function Upload({ type = "rectangle", onChange }) {
 					>
 						{file != null ? file.file.name ?? "unknown file" : "Upload File"}
 					</FormLabel>
-					<Input type="file" onChange={handleChange} display="none" />
+					<Input
+						type="file"
+						onChange={handleChange}
+						accept="image/*"
+						display="none"
+					/>
 				</FormControl>
 			</>
 		);
